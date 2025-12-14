@@ -1,26 +1,203 @@
 @import "tailwindcss";
 
+/* Dark Blue Dashboard ERP Design System */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Colors */
+  --color-primary: #4A90E2;
+  --color-secondary: #6772E5;
+  --color-accent: #4ECDC4;
+  --color-background: #1E293B;
+  --color-surface: #2D3748;
+  --color-text-primary: #FFFFFF;
+  --color-text-secondary: #A0AEC0;
+  --color-text-disabled: #718096;
+  --color-success: #38A169;
+  --color-error: #E53E3E;
+  --color-warning: #DD6B20;
+  --color-info: #3182CE;
+  --color-input-bg: #3B4B63;
+  --color-input-border: #4A5568;
+  --color-table-header: #3B4B63;
+  
+  /* Spacing */
+  --sidebar-width: 16rem;
+  --sidebar-collapsed-width: 4rem;
+  --header-height: 4rem;
+  
+  /* Breakpoints (for reference - Tailwind handles these) */
+  /* Mobile: < 640px (sm) */
+  /* Tablet: 640px - 1024px (sm to lg) */
+  /* Desktop: > 1024px (lg+) */
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
+  --color-background: var(--color-background);
+  --color-foreground: var(--color-text-secondary);
+  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+/* Base styles */
+body {
+  background: var(--color-background);
+  color: var(--color-text-secondary);
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Typography */
+h1 { font-size: 2.25rem; font-weight: 700; color: var(--color-text-primary); }
+h2 { font-size: 1.875rem; font-weight: 600; color: var(--color-text-primary); }
+h3 { font-size: 1.5rem; font-weight: 500; color: var(--color-text-primary); }
+h4 { font-size: 1.25rem; font-weight: 500; color: var(--color-text-secondary); }
+h5 { font-size: 1rem; font-weight: 400; color: var(--color-text-secondary); }
+h6 { font-size: 0.875rem; font-weight: 400; color: var(--color-text-secondary); }
+
+/* Responsive typography */
+@media (max-width: 640px) {
+  h1 { font-size: 1.75rem; }
+  h2 { font-size: 1.5rem; }
+  h3 { font-size: 1.25rem; }
+}
+
+/* Button styles */
+.btn-primary {
+  background-color: var(--color-primary);
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 0.375rem;
+  font-weight: 600;
+  transition: all 0.2s;
+}
+
+.btn-primary:hover {
+  background-color: #6B80E5;
+}
+
+.btn-primary:disabled {
+  background-color: var(--color-text-disabled);
+  color: var(--color-text-secondary);
+}
+
+.btn-secondary {
+  background-color: transparent;
+  border: 1px solid var(--color-primary);
+  color: var(--color-primary);
+  padding: 0.5rem 1rem;
+  border-radius: 0.375rem;
+  font-weight: 600;
+  transition: all 0.2s;
+}
+
+.btn-secondary:hover {
+  background-color: rgba(74, 144, 226, 0.1);
+}
+
+.btn-secondary:disabled {
+  border-color: var(--color-text-disabled);
+  color: var(--color-text-disabled);
+}
+
+/* Input styles */
+.input {
+  background-color: var(--color-input-bg);
+  border: 1px solid var(--color-input-border);
+  color: var(--color-text-primary);
+  border-radius: 0.375rem;
+  padding: 0.5rem 0.75rem;
+  transition: all 0.2s;
+}
+
+.input:focus {
+  border-color: var(--color-secondary);
+  box-shadow: 0 0 0 2px rgba(103, 114, 229, 0.2);
+  outline: none;
+}
+
+.input::placeholder {
+  color: var(--color-text-disabled);
+}
+
+/* Card styles */
+.card {
+  background-color: var(--color-surface);
+  border-radius: 0.5rem;
+  padding: 1rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Responsive card padding */
+@media (max-width: 640px) {
+  .card {
+    padding: 0.75rem;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* Responsive utilities */
+@media (max-width: 640px) {
+  /* Mobile: Full-width components, hamburger navigation */
+  .mobile-full-width {
+    width: 100%;
+    margin-left: 0;
+    margin-right: 0;
+  }
+  
+  .mobile-stack {
+    flex-direction: column;
+  }
+  
+  .mobile-hidden {
+    display: none;
+  }
+}
+
+@media (min-width: 640px) and (max-width: 1024px) {
+  /* Tablet: Collapsible sidebar overlay */
+  .tablet-sidebar-collapsed {
+    width: var(--sidebar-collapsed-width);
+  }
+}
+
+@media (min-width: 1024px) {
+  /* Desktop: Persistent sidebar navigation */
+  .desktop-sidebar-persistent {
+    width: var(--sidebar-width);
+  }
+}
+
+/* Scrollbar styling for horizontal scroll tables */
+.overflow-x-auto::-webkit-scrollbar {
+  height: 8px;
+}
+
+.overflow-x-auto::-webkit-scrollbar-track {
+  background: var(--color-surface);
+  border-radius: 4px;
+}
+
+.overflow-x-auto::-webkit-scrollbar-thumb {
+  background: var(--color-input-border);
+  border-radius: 4px;
+}
+
+.overflow-x-auto::-webkit-scrollbar-thumb:hover {
+  background: var(--color-text-disabled);
+}
+
+/* Focus visible styles for accessibility */
+:focus-visible {
+  outline: 2px solid var(--color-secondary);
+  outline-offset: 2px;
+}
+
+/* Smooth transitions - only apply to interactive elements */
+button,
+a,
+input,
+select,
+textarea {
+  transition-property: background-color, border-color, color, fill, stroke, opacity;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
 }
