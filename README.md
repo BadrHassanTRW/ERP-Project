@@ -1,36 +1,109 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# ERP Project
 
-## Getting Started
+A full-stack ERP system with a Next.js frontend and Laravel backend.
 
-First, run the development server:
+## Project Structure
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+```
+├── /                    # Next.js Frontend (Dashboard)
+├── /laravel-backend     # Laravel API Backend
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Requirements
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- Node.js 18+
+- PHP 8.2+
+- Composer
+- MySQL/MariaDB
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Quick Start
 
-## Learn More
+### 1. Clone the repository
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+git clone https://github.com/BadrHassanTRW/ERP-Project.git
+cd ERP-Project
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### 2. Backend Setup (Laravel)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```bash
+cd laravel-backend
 
-## Deploy on Vercel
+# Install PHP dependencies
+composer install
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+# Copy environment file and configure
+cp .env.example .env
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+# Generate application key
+php artisan key:generate
+
+# Configure your database in .env file:
+# DB_DATABASE=your_database
+# DB_USERNAME=your_username
+# DB_PASSWORD=your_password
+
+# Run migrations
+php artisan migrate
+
+# Start the backend server
+php artisan serve
+```
+
+The API will be available at `http://127.0.0.1:8000`
+
+### 3. Frontend Setup (Next.js)
+
+```bash
+# From the root directory
+cd ..
+
+# Install Node dependencies
+npm install
+
+# Copy environment file
+cp .env.example .env.local
+
+# Start the development server
+npm run dev
+```
+
+The dashboard will be available at `http://localhost:3000`
+
+## Environment Variables
+
+### Frontend (.env.local)
+
+```env
+NEXT_PUBLIC_API_URL=http://127.0.0.1:8000/api
+NEXT_PUBLIC_BACKEND_URL=http://127.0.0.1:8000
+```
+
+### Backend (.env)
+
+Key variables to configure:
+- `DB_DATABASE` - Your database name
+- `DB_USERNAME` - Database username
+- `DB_PASSWORD` - Database password
+- `CORS_ALLOWED_ORIGINS` - Frontend URL for CORS
+- `SANCTUM_STATEFUL_DOMAINS` - Domains for session authentication
+
+## Tech Stack
+
+### Frontend
+- Next.js 15
+- React 19
+- TypeScript
+- Tailwind CSS
+- Zustand (State Management)
+
+### Backend
+- Laravel 11
+- Laravel Sanctum (Authentication)
+- MySQL
+- Modular Architecture (nwidart/laravel-modules)
+
+## License
+
+MIT
